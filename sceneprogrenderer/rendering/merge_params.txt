@@ -1,0 +1,2 @@
+/Users/kunalgupta/Documents/sceneprog/us_nn/museum_1
+/Users/kunalgupta/Documents/sceneprog/us_nn/museum_1/scene.glb
