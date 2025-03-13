@@ -333,10 +333,10 @@ class SceneRendererWorker:
         # cz = -cz
 
         corners = [
-        ((cx+W, cz-D, 2*H),  (cx, cz, 0)),  # Camera at (0, 0, h) looking at (w, d, 0)
-        ((cx+W, cz+D, 2*H), (cx, cz, 0)),  # Camera at (w, 0, h) looking at (0, d, 0)
-        ((cx-W, cz+D, 2*H), (cx, cz, 0)),  # Camera at (0, d, h) looking at (w, 0, 0)
-        ((cx-W, cz-D, 2*H),  (cx, cz, 0))   # Camera at (w, d, h) looking at (0, 0, 0)
+        ((cx+2*W, cz-2*D, 3*H),  (cx, cz, 0)),  # Camera at (0, 0, h) looking at (w, d, 0)
+        ((cx+2*W, cz+2*D, 3*H), (cx, cz, 0)),  # Camera at (w, 0, h) looking at (0, d, 0)
+        ((cx-2*W, cz+2*D, 3*H), (cx, cz, 0)),  # Camera at (0, d, h) looking at (w, 0, 0)
+        ((cx-2*W, cz-2*D, 3*H),  (cx, cz, 0))   # Camera at (w, d, h) looking at (0, 0, 0)
         ]
         
         for i, (camera_location, target_location) in enumerate(corners):
@@ -354,10 +354,10 @@ class SceneRendererWorker:
 
         # Midpoints of the four upper edges
         edges = [
-            ((cx + 2*W, cz, 2 * H), (cx, cz, 0)),  # Front-midpoint
-            ((cx, cz + 2*D, 2 * H), (cx, cz, 0)),  # Back-midpoint
-            ((cx - 2*W, cz, 2 * H), (cx, cz, 0)),  # Left-midpoint
-            ((cx, cz - 2*D, 2 * H), (cx, cz, 0))   # Right-midpoint
+            ((cx + 3*W, cz, 3 * H), (cx, cz, 0)),  # Front-midpoint
+            ((cx, cz + 3*D, 3 * H), (cx, cz, 0)),  # Back-midpoint
+            ((cx - 3*W, cz, 3 * H), (cx, cz, 0)),  # Left-midpoint
+            ((cx, cz - 3*D, 3 * H), (cx, cz, 0))   # Right-midpoint
         ]
 
         for i, (camera_location, target_location) in enumerate(edges):

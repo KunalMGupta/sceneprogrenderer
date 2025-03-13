@@ -11,47 +11,52 @@ worker = SceneRendererWorker({resolution_x}, {resolution_y}, {samples}, {frame_r
         from pathlib import Path
         self.__location__ = str(Path(__file__).parent)
 
+    def run(self, script):
+        self.exec(script, location=self.__location__, debug=False, no_save=True)
+
     def render(self, path, output_path, location=None, target=None):
         script = f"""
 {self.script}
 worker.render("{path}", "{output_path}", location={location}, target={target})
 """
-        self.exec(script, location=self.__location__)
+        self.run(script)
 
     def render_from_corners(self, path, output_paths):
         script = f"""
 {self.script}
 worker.render_from_corners("{path}", {output_paths})
 """
-        self.exec(script, location=self.__location__)
+        self.run(script)
     
     def render_from_edge_midpoints(self, path, output_paths):
         script = f"""
 {self.script}
 worker.render_from_edge_midpoints("{path}", {output_paths})
 """
-        self.exec(script, location=self.__location__)
+        self.run(script)
 
     def render_360(self, path, output_path):
         script = f"""
 {self.script}
 worker.render_360("{path}", "{output_path}")
 """
-        self.exec(script, location=self.__location__)
+        self.run(script)
 
     def render_from_front(self, path, output_path):
         script = f"""
 {self.script}
 worker.render_from_front("{path}", "{output_path}")
 """
-        self.exec(script, location=self.__location__)
+        self.run(script)
     
     def render_from_top(self, path, output_path):
         script = f"""
 {self.script}
 worker.render_from_top("{path}", "{output_path}")
 """
-        self.exec(script, location=self.__location__)
+        self.run(script)
+
+ 
     
 
 # renderer = SceneRenderer(resolution_x=512, resolution_y=512, samples=5)
