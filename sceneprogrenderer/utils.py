@@ -129,6 +129,7 @@ def animate_camera(cam_ob, cam_radius, scene_center, num_frames=360):
     scene.frame_end = num_frames
 
     for frame, theta in enumerate(range(0, num_frames), start=1):
+        theta-=90
         theta_rad = np.deg2rad(theta)
         cam_ob.location = Vector((
             scene_center[0] + cam_radius * np.cos(theta_rad),
