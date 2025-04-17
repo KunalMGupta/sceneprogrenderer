@@ -1,18 +1,19 @@
 
-from sceneprogexec import SceneProgExecWithDebugger
+from sceneprogexec import SceneProgExec
 
 class SceneProgRenderer:
-    def __init__(self, resolution_x: int = 1920, resolution_y: int = 1080, samples: int = 100, frame_rate: int = 30, num_frames: int = 360, cuda: bool = False):
+    def __init__(self, resolution_x: int = 1920, resolution_y: int = 1080, samples: int = 100, frame_rate: int = 30, num_frames: int = 360, cuda: bool = False, verbose=False):
         self.script = f"""
 from utils import *
 worker = SceneRendererWorker({resolution_x}, {resolution_y}, {samples}, {frame_rate}, {num_frames}, {cuda})
 """
-        self.exec = SceneProgExecWithDebugger()
-        from pathlib import Path
-        self.__location__ = str(Path(__file__).parent)
+        import os
+        package_path = os.path.dirname(os.path.abspath(__file__))
+        self.exec = SceneProgExec(caller_path=package_path)
+        self.verbose = verbose
 
     def run(self, script):
-        self.exec(script, location=self.__location__, debug=False, no_save=True)
+        self.exec(script, verbose=self.verbose)
 
     def render(self, path, output_path, location=None, target=None):
         script = f"""
@@ -55,9 +56,6 @@ worker.render_from_front("{path}", "{output_path}")
 worker.render_from_top("{path}", "{output_path}")
 """
         self.run(script)
-
- 
-    
 
 # renderer = SceneRenderer(resolution_x=512, resolution_y=512, samples=5)
 # renderer.render_from_corners("/Users/kunalgupta/Documents/opttool2.blend", ["/Users/kunalgupta/Documents/packages/sceneprogrenderer/output1.png", "/Users/kunalgupta/Documents/packages/sceneprogrenderer/output2.png", "/Users/kunalgupta/Documents/packages/sceneprogrenderer/output3.png", "/Users/kunalgupta/Documents/packages/sceneprogrenderer/output4.png"])
