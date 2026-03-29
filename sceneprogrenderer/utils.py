@@ -78,24 +78,34 @@ def save_current_scene(filepath):
     bpy.ops.wm.save_as_mainfile(filepath=filepath)
 
 def setup_renderer_video(output_path, resolution_x=1920, resolution_y=1080, frame_rate=30, samples=100):
-    render = bpy.context.scene.render
-    render.engine = 'BLENDER_EEVEE_NEXT'
-    render.image_settings.file_format = 'FFMPEG'
+    scene = bpy.context.scene
+    render = scene.render
+
+    render.engine = 'BLENDER_EEVEE'
+
+    # Blender 5.x: image format stays an image enum, media_type controls image vs video
+    render.image_settings.file_format = 'PNG'
+    render.image_settings.media_type = 'VIDEO'
+
+    # Video encoding settings
     render.ffmpeg.format = 'MPEG4'
     render.ffmpeg.codec = 'H264'
     render.ffmpeg.constant_rate_factor = 'HIGH'
     render.ffmpeg.ffmpeg_preset = 'GOOD'
     render.ffmpeg.video_bitrate = 5000
-    render.resolution_x = resolution_x 
-    render.resolution_y = resolution_y 
+
+    render.resolution_x = resolution_x
+    render.resolution_y = resolution_y
     render.resolution_percentage = 100
     render.fps = frame_rate
-    render.filepath = output_path
-    bpy.context.scene.cycles.samples = samples 
+    render.filepath = output_path  # e.g. "/tmp/out.mp4"
+
+    # only relevant if using Cycles
+    scene.cycles.samples = samples
 
 def setup_renderer(output_path, resolution_x=1920, resolution_y=1080, samples=100):
     render = bpy.context.scene.render
-    render.engine = 'BLENDER_EEVEE_NEXT'
+    render.engine = 'BLENDER_EEVEE'
     render.resolution_x = resolution_x
     render.resolution_y = resolution_y
     render.filepath = output_path  # Output path

@@ -66,12 +66,12 @@ renderer.render_from_edge_midpoints(
 
 ### Render from front or top views
 ```python
-renderer.render_from_front_view(
+renderer.render_from_front(
   path="scene.blend",
   output_path="front_view.png",
 )
 
-renderer.render_from_top_view(
+renderer.render_from_top(
   path="scene.blend",
   output_path="top_view.png",
 )
@@ -79,7 +79,7 @@ renderer.render_from_top_view(
 
 ### Render 360-degree animation
 ```python
-renderer.render_360_animation(
+renderer.render_360(
   path="scene.blend",
   output_path="360_animation.mp4",
 )
